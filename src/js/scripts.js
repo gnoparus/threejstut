@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as dat from "dat.gui";
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -8,7 +9,7 @@ document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
-  75,
+  60,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -24,7 +25,7 @@ box.position.set(1, 2, -3);
 scene.add(box);
 
 const sphereGeometry = new THREE.SphereGeometry(2, 25, 25);
-const sphereMaterial = new THREE.MeshStandardMaterial({
+const sphereMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ff00,
   //   wireframe: true,
 });
@@ -46,10 +47,30 @@ scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
+const gui = new dat.GUI();
+const options = {
+  sphereColor: "#00ff00",
+  wireframe: false,
+  speed: 0.01,
+};
+gui.addColor(options, "sphereColor").onChange((e) => {
+  sphere.material.color.set(e);
+});
+gui.add(options, "wireframe").onChange((e) => {
+  sphere.material.wireframe = e;
+});
+gui.add(options, "speed", 0.0, 0.1);
+
+let step = 0;
+
 const animate = (t) => {
   box.rotation.x = 0.0005 * t;
   box.rotation.y = 0.0004 * t;
   box.rotation.z = 0.0001 * t;
+
+  step += options.speed;
+  sphere.position.y = 5 * Math.abs(Math.sin(step));
+
   renderer.render(scene, camera);
 };
 
