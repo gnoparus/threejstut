@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
 
+// setup scene and camera
 const renderer = new THREE.WebGLRenderer();
-
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -14,10 +14,13 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
+// control
 const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(2, 1, 8);
 orbit.update();
 
+// objects
 const boxGeometry = new THREE.BoxGeometry(2, 1, 1.5, 5, 5, 5);
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const box = new THREE.Mesh(boxGeometry, boxMaterial);
@@ -33,6 +36,7 @@ const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.position.set(-2, 3, 1);
 scene.add(sphere);
 
+// Plane
 const planeGeometry = new THREE.PlaneGeometry(10, 10, 30, 30);
 const planeMaterial = new THREE.MeshBasicMaterial({
   color: 0xffffff,
@@ -42,14 +46,17 @@ const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.rotation.x = -0.5 * Math.PI;
 scene.add(plane);
 
+// Helper
 const gridHelper = new THREE.GridHelper(10, 10);
 scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
-const ambientLight = new THREE.AmbientLight(0x999999);
+// Lights
+const ambientLight = new THREE.AmbientLight(0x333333);
 scene.add(ambientLight);
 
+// GUI
 const gui = new dat.GUI();
 const options = {
   sphereColor: "#00ff00",
@@ -64,8 +71,8 @@ gui.add(options, "wireframe").onChange((e) => {
 });
 gui.add(options, "speed", 0.0, 0.1);
 
+// Animate
 let step = 0;
-
 const animate = (t) => {
   box.rotation.x = 0.0005 * t;
   box.rotation.y = 0.0004 * t;
@@ -76,6 +83,5 @@ const animate = (t) => {
 
   renderer.render(scene, camera);
 };
-
 renderer.render(scene, camera);
 renderer.setAnimationLoop(animate);
