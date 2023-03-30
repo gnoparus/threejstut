@@ -39,7 +39,7 @@ scene.add(sphere);
 sphere.castShadow = true;
 
 // Plane
-const planeGeometry = new THREE.PlaneGeometry(10, 10, 30, 30);
+const planeGeometry = new THREE.PlaneGeometry(15, 15, 30, 30);
 const planeMaterial = new THREE.MeshStandardMaterial({
   color: 0xcc00cc,
   side: THREE.DoubleSide,
@@ -50,27 +50,31 @@ scene.add(plane);
 plane.receiveShadow = true;
 
 // Helper
-const gridHelper = new THREE.GridHelper(10, 10);
+const gridHelper = new THREE.GridHelper(15, 15);
 scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
+// const ambientLight = new THREE.AmbientLight(0x333333);
+// scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0x999999, 0.8);
-scene.add(directionalLight);
-directionalLight.position.set(-12, 19, 14);
-directionalLight.castShadow = true;
+// const directionalLight = new THREE.DirectionalLight(0x999999, 0.8);
+// scene.add(directionalLight);
+// directionalLight.position.set(-12, 19, 14);
+// directionalLight.castShadow = true;
 
-const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
-scene.add(dLightHelper);
+// const dLightHelper = new THREE.DirectionalLightHelper(directionalLight, 3);
+// scene.add(dLightHelper);
 
-const dLightShadowHelper = new THREE.CameraHelper(
-  directionalLight.shadow.camera
-);
-scene.add(dLightShadowHelper);
+// const dLightShadowHelper = new THREE.CameraHelper(
+//   directionalLight.shadow.camera
+// );
+// scene.add(dLightShadowHelper);
+
+const spotLight = new THREE.SpotLight(0xffffff, 0.8, 50, 30);
+scene.add(spotLight);
+spotLight.position.set(3, 5, -4);
 
 // GUI
 const gui = new dat.GUI();
