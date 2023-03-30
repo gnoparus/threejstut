@@ -80,6 +80,10 @@ spotLight.castShadow = true;
 const sLightHelper = new THREE.SpotLightHelper(spotLight);
 scene.add(sLightHelper);
 
+// scene.fog = new THREE.Fog(0xffffff, 0, 100);
+scene.fog = new THREE.FogExp2(0xffffff, 0.02);
+renderer.setClearColor(0x333366);
+
 // GUI
 const gui = new dat.GUI();
 const options = {
