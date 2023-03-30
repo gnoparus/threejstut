@@ -17,13 +17,20 @@ const orbit = new OrbitControls(camera, renderer.domElement);
 camera.position.set(2, 1, 8);
 orbit.update();
 
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
-
-const boxGeometry = new THREE.BoxGeometry();
+const boxGeometry = new THREE.BoxGeometry(2, 1, 1.5, 5, 5, 5);
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 const box = new THREE.Mesh(boxGeometry, boxMaterial);
+box.position.set(1, 2, -3);
 scene.add(box);
+
+const sphereGeometry = new THREE.SphereGeometry(2, 25, 25);
+const sphereMaterial = new THREE.MeshStandardMaterial({
+  color: 0x00ff00,
+  //   wireframe: true,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+sphere.position.set(-2, 3, 1);
+scene.add(sphere);
 
 const planeGeometry = new THREE.PlaneGeometry(10, 10, 30, 30);
 const planeMaterial = new THREE.MeshBasicMaterial({
@@ -31,12 +38,13 @@ const planeMaterial = new THREE.MeshBasicMaterial({
   side: THREE.DoubleSide,
 });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-scene.add(plane);
 plane.rotation.x = -0.5 * Math.PI;
+scene.add(plane);
 
 const gridHelper = new THREE.GridHelper(10, 10);
 scene.add(gridHelper);
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
 
 const animate = (t) => {
   box.rotation.x = 0.0005 * t;
