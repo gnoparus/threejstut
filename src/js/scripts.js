@@ -2,6 +2,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
 
+import space from "../img/space.jpg";
+import star from "../img/star.jpg";
+import dog from "../img/dog.jpg";
+
 // setup renderer, scene and camera
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -82,7 +86,29 @@ scene.add(sLightHelper);
 
 // scene.fog = new THREE.Fog(0xffffff, 0, 100);
 scene.fog = new THREE.FogExp2(0xffffff, 0.02);
-renderer.setClearColor(0x333366);
+
+// renderer.setClearColor(0x333366);
+
+// const textureLoader = new THREE.TextureLoader();
+// scene.background = textureLoader.load(space);
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+scene.background = cubeTextureLoader.load([
+  star,
+  space,
+  space,
+  space,
+  space,
+  space,
+]);
+
+const box2Geometry = new THREE.BoxGeometry(1, 1, 1);
+const box2Material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  map: new THREE.TextureLoader().load(dog),
+});
+const box2 = new THREE.Mesh(box2Geometry, box2Material);
+scene.add(box2);
+box2.position.set(4, 1, 3);
 
 // GUI
 const gui = new dat.GUI();
