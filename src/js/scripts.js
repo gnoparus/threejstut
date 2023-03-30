@@ -41,7 +41,7 @@ sphere.castShadow = true;
 // Plane
 const planeGeometry = new THREE.PlaneGeometry(15, 15, 30, 30);
 const planeMaterial = new THREE.MeshStandardMaterial({
-  color: 0xcc00cc,
+  color: 0xff33ff,
   side: THREE.DoubleSide,
 });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -72,9 +72,13 @@ scene.add(axesHelper);
 // );
 // scene.add(dLightShadowHelper);
 
-const spotLight = new THREE.SpotLight(0xffffff, 0.8, 50, 30);
+const spotLight = new THREE.SpotLight(0xffffff, 0.8, 0, 0.1);
 scene.add(spotLight);
-spotLight.position.set(3, 5, -4);
+spotLight.position.set(30, 50, -44);
+spotLight.castShadow = true;
+
+const sLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(sLightHelper);
 
 // GUI
 const gui = new dat.GUI();
@@ -82,6 +86,9 @@ const options = {
   sphereColor: "#00ff00",
   wireframe: false,
   speed: 0.01,
+  angle: 0.1,
+  penumbra: 0.1,
+  intensity: 0.8,
 };
 gui.addColor(options, "sphereColor").onChange((e) => {
   sphere.material.color.set(e);
@@ -90,6 +97,9 @@ gui.add(options, "wireframe").onChange((e) => {
   sphere.material.wireframe = e;
 });
 gui.add(options, "speed", 0.0, 0.1);
+gui.add(options, "angle", 0.0, 0.15);
+gui.add(options, "penumbra", 0.0, 1.0);
+gui.add(options, "intensity", 0.0, 2.0);
 
 // Animate
 let step = 0;
@@ -100,6 +110,10 @@ const animate = (t) => {
 
   step += options.speed;
   sphere.position.y = 5 * Math.abs(Math.sin(step));
+
+  spotLight.angle = options.angle;
+  spotLight.penumbra = options.penumbra;
+  spotLight.intensity = options.intensity;
 
   renderer.render(scene, camera);
 };
