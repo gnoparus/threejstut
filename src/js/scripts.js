@@ -25,7 +25,7 @@ box.position.set(1, 2, -3);
 scene.add(box);
 
 const sphereGeometry = new THREE.SphereGeometry(2, 25, 25);
-const sphereMaterial = new THREE.MeshBasicMaterial({
+const sphereMaterial = new THREE.MeshStandardMaterial({
   color: 0x00ff00,
   //   wireframe: true,
 });
@@ -46,6 +46,9 @@ const gridHelper = new THREE.GridHelper(10, 10);
 scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
+
+const ambientLight = new THREE.AmbientLight(0x999999);
+scene.add(ambientLight);
 
 const gui = new dat.GUI();
 const options = {
