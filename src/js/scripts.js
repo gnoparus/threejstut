@@ -119,6 +119,7 @@ const box2MultiMaterial = [
 const box2 = new THREE.Mesh(box2Geometry, box2MultiMaterial);
 scene.add(box2);
 box2.position.set(4, 1, 3);
+box2.castShadow = true;
 
 // GUI
 const gui = new dat.GUI();
@@ -155,6 +156,10 @@ const animate = (t) => {
   spotLight.penumbra = options.penumbra;
   spotLight.intensity = options.intensity;
   sLightHelper.update();
+
+  box2.scale.x = 0.5 + 1 * Math.abs(Math.sin(step));
+  box2.scale.y = 0.5 + 1 * Math.abs(Math.sin(step));
+  box2.scale.z = 0.5 + 1 * Math.abs(Math.sin(step));
 
   renderer.render(scene, camera);
 };
