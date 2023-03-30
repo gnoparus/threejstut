@@ -114,6 +114,7 @@ const animate = (t) => {
   spotLight.angle = options.angle;
   spotLight.penumbra = options.penumbra;
   spotLight.intensity = options.intensity;
+  sLightHelper.update();
 
   renderer.render(scene, camera);
 };
