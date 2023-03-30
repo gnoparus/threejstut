@@ -103,10 +103,20 @@ scene.background = cubeTextureLoader.load([
 
 const box2Geometry = new THREE.BoxGeometry(1, 1, 1);
 const box2Material = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
-  map: new THREE.TextureLoader().load(dog),
+  //   color: 0xffffff,
+  //   map: new THREE.TextureLoader().load(dog),
 });
-const box2 = new THREE.Mesh(box2Geometry, box2Material);
+// const box2 = new THREE.Mesh(box2Geometry, box2Material);
+// box2.material.map = new THREE.TextureLoader().load(dog);
+const box2MultiMaterial = [
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(dog) }),
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(dog) }),
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(star) }),
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(star) }),
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(space) }),
+  new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(space) }),
+];
+const box2 = new THREE.Mesh(box2Geometry, box2MultiMaterial);
 scene.add(box2);
 box2.position.set(4, 1, 3);
 
