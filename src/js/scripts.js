@@ -150,16 +150,16 @@ const animate = (t) => {
   box.rotation.z = 0.0001 * t;
 
   step += options.speed;
-  sphere.position.y = 5 * Math.abs(Math.sin(step));
+  sphere.position.y = 1.5 + 5 * Math.abs(Math.sin(step));
 
   spotLight.angle = options.angle;
   spotLight.penumbra = options.penumbra;
   spotLight.intensity = options.intensity;
   sLightHelper.update();
 
-  box2.scale.x = 0.5 + 1 * Math.abs(Math.sin(step));
-  box2.scale.y = 0.5 + 1 * Math.abs(Math.sin(step));
-  box2.scale.z = 0.5 + 1 * Math.abs(Math.sin(step));
+  box2.scale.x = 1 - 0.5 * Math.abs(Math.sin(step));
+  box2.scale.y = 1 - 0.5 * Math.abs(Math.sin(step));
+  box2.scale.z = 1 - 0.5 * Math.abs(Math.sin(step));
 
   renderer.render(scene, camera);
 };
