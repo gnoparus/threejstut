@@ -200,6 +200,7 @@ const animate = (t) => {
       item.object.rotation.y = t / 200;
       item.object.rotation.z = t / 300;
 
+      sphere.material.color.set(options.sphereColor);
       console.log(item);
     }
   });
