@@ -43,7 +43,7 @@ scene.add(sphere);
 sphere.castShadow = true;
 
 // Plane
-const planeGeometry = new THREE.PlaneGeometry(15, 15, 30, 30);
+const planeGeometry = new THREE.PlaneGeometry(30, 30, 30, 30);
 const planeMaterial = new THREE.MeshStandardMaterial({
   color: 0xff33ff,
   side: THREE.DoubleSide,
@@ -53,8 +53,23 @@ plane.rotation.x = -0.5 * Math.PI;
 scene.add(plane);
 plane.receiveShadow = true;
 
+const plane2Geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
+const plane2Material = new THREE.MeshBasicMaterial({
+  color: 0xffffff,
+  wireframe: true,
+});
+const plane2 = new THREE.Mesh(plane2Geometry, plane2Material);
+scene.add(plane2);
+plane2.position.set(10, 10, 15);
+
+plane2.geometry.attributes.position.array[0] -= 10 * Math.random();
+plane2.geometry.attributes.position.array[1] -= 10 * Math.random();
+plane2.geometry.attributes.position.array[2] -= 10 * Math.random();
+const lastPointZ = plane2.geometry.attributes.position.array.length - 1;
+plane2.geometry.attributes.position.array[lastPointZ] -= 10 * Math.random();
+
 // Helper
-const gridHelper = new THREE.GridHelper(15, 15);
+const gridHelper = new THREE.GridHelper(30, 30);
 scene.add(gridHelper);
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
@@ -155,7 +170,7 @@ window.addEventListener("mousemove", (e) => {
 const rayCaster = new THREE.Raycaster();
 const sphereId = sphere.id;
 sphere.name = "TheSphere";
-box.name = "TheBox";
+box2.name = "TheBox";
 
 // Animate
 let step = 0;
@@ -197,8 +212,8 @@ const animate = (t) => {
 
     if (item.object.name === "TheBox") {
       item.object.rotation.x = t / 100;
-      item.object.rotation.y = t / 200;
-      item.object.rotation.z = t / 300;
+      item.object.rotation.y = t / 1000;
+      item.object.rotation.z = t / 10000;
 
       sphere.material.color.set(options.sphereColor);
       console.log(item);
@@ -208,6 +223,12 @@ const animate = (t) => {
   box2.scale.x = 1 - 0.5 * Math.abs(Math.sin(step));
   box2.scale.y = 1 - 0.5 * Math.abs(Math.sin(step));
   box2.scale.z = 1 - 0.5 * Math.abs(Math.sin(step));
+
+  plane2.geometry.attributes.position.array[0] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[1] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[2] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[lastPointZ] = 10 * Math.random();
+  plane2.geometry.attributes.position.needsUpdate = true;
 
   renderer.render(scene, camera);
 };
