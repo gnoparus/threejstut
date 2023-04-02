@@ -196,8 +196,10 @@ const animate = (t) => {
     }
 
     if (item.object.name === "TheBox") {
-      item.object.rotation.x = t / 1000;
-      item.object.rotation.y = t / 1000;
+      item.object.rotation.x = t / 100;
+      item.object.rotation.y = t / 200;
+      item.object.rotation.z = t / 300;
+
       console.log(item);
     }
   });
