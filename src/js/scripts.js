@@ -1,10 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import space from "../img/space.jpg";
 import star from "../img/star.jpg";
 import dog from "../img/dog.jpg";
+
+// Model from https://studio.blender.org/training/stylized-character-workflow/base-meshes/
+const humanUrl = new URL("../assets/human.glb", import.meta.url);
 
 // setup renderer, scene and camera
 const renderer = new THREE.WebGLRenderer();
@@ -156,6 +160,20 @@ const sphere2Material = new THREE.ShaderMaterial({
 const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
 scene.add(sphere2);
 sphere2.position.set(-5, 10, 10);
+
+const assetLoader = new GLTFLoader();
+assetLoader.load(
+  humanUrl.href,
+  (gltf) => {
+    const model = gltf.scene;
+    scene.add(model);
+    model.position.set(2, 0, 4);
+  },
+  undefined,
+  (error) => {
+    console.error(error);
+  }
+);
 
 // GUI
 const gui = new dat.GUI();
