@@ -136,6 +136,27 @@ scene.add(box2);
 box2.position.set(4, 1, 3);
 box2.castShadow = true;
 
+const sphere2Geometry = new THREE.SphereGeometry(4);
+// const vShader = `
+//   void main() {
+//     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+//   }
+// `;
+// const fShader = `
+//   void main() {
+//     gl_FragColor = vec4(0.5, 0.5, 1.0, 1.0);
+//   }
+// `;
+const sphere2Material = new THREE.ShaderMaterial({
+  // vertexShader: vShader,
+  // fragmentShader: fShader,
+  vertexShader: document.getElementById("vertexShader").textContent,
+  fragmentShader: document.getElementById("fragmentShader").textContent,
+});
+const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
+scene.add(sphere2);
+sphere2.position.set(-5, 10, 10);
+
 // GUI
 const gui = new dat.GUI();
 const options = {
