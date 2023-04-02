@@ -224,9 +224,9 @@ const animate = (t) => {
   box2.scale.y = 1 - 0.5 * Math.abs(Math.sin(step));
   box2.scale.z = 1 - 0.5 * Math.abs(Math.sin(step));
 
-  plane2.geometry.attributes.position.array[0] = 10 * Math.random();
-  plane2.geometry.attributes.position.array[1] = 10 * Math.random();
-  plane2.geometry.attributes.position.array[2] = 10 * Math.random();
+  plane2.geometry.attributes.position.array[0] = 1 * Math.random() - 5;
+  plane2.geometry.attributes.position.array[1] = 1 * Math.random() + 5;
+  plane2.geometry.attributes.position.array[2] = 1 * Math.random();
   plane2.geometry.attributes.position.array[lastPointZ] = 10 * Math.random();
   plane2.geometry.attributes.position.needsUpdate = true;
 
